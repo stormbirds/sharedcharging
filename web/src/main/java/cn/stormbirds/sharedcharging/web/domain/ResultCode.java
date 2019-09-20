@@ -1,4 +1,4 @@
-package cn.stormbirds.sharedcharging.web.response;
+package cn.stormbirds.sharedcharging.web.domain;
 
 /**
  *

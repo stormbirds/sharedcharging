@@ -1,7 +1,7 @@
 package cn.stormbirds.sharedcharging.web.exception;
 
 
-import cn.stormbirds.sharedcharging.web.response.ResultJson;
+import cn.stormbirds.sharedcharging.web.domain.ResultJson;
 
 /**
  *

@@ -1,4 +1,4 @@
-package cn.stormbirds.sharedcharging.web.base;
+package cn.stormbirds.sharedcharging.common.base;
 
 /**
  * <p>

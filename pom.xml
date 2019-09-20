@@ -17,6 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
         <nacos.version>0.2.3</nacos.version>
+        <apache.commons-lang3.version>3.8.1</apache.commons-lang3.version>
     </properties>
 
     <modules>
@@ -34,6 +35,11 @@
                 <groupId>com.alibaba.boot</groupId>
                 <artifactId>nacos-config-spring-boot-starter</artifactId>
                 <version>${nacos.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache.commons-lang3.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

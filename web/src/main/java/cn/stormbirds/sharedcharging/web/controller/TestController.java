@@ -1,7 +1,7 @@
 package cn.stormbirds.sharedcharging.web.controller;
 
 import cn.stormbirds.sharedcharging.web.base.BaseController;
-import cn.stormbirds.sharedcharging.web.response.ResultJson;
+import cn.stormbirds.sharedcharging.web.domain.ResultJson;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
 import org.springframework.web.bind.annotation.*;
 
