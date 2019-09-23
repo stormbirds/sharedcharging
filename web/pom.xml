@@ -7,6 +7,7 @@
         <artifactId>shared-charging-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+    <groupId>cn.stormbirds.sharedcharging</groupId>
     <artifactId>web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>web</name>
@@ -41,18 +42,41 @@
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.boot</groupId>
-            <artifactId>nacos-config-spring-boot-starter</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.2.0</version>
         </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
         <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>nacos-config-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>nacos-discovery-spring-boot-starter</artifactId>
+            <version>0.2.3</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
             <version>2.7.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.stormbirds.sharedcharging</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.stormbirds.sharedcharging</groupId>
+            <artifactId>api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

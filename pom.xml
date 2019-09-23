@@ -14,6 +14,8 @@
     <name>Shared Charging</name>
     <description>Demo project for Spring Boot</description>
 
+    <packaging>pom</packaging>
+
     <properties>
         <java.version>1.8</java.version>
         <nacos.version>0.2.3</nacos.version>
@@ -21,12 +23,17 @@
     </properties>
 
     <modules>
+        <module>api</module>
         <module>common</module>
+        <module>model</module>
         <module>users</module>
     </modules>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -34,6 +41,11 @@
             <dependency>
                 <groupId>com.alibaba.boot</groupId>
                 <artifactId>nacos-config-spring-boot-starter</artifactId>
+                <version>${nacos.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-actuator</artifactId>
                 <version>${nacos.version}</version>
             </dependency>
             <dependency>
@@ -45,12 +57,12 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
     </build>
 
 </project>

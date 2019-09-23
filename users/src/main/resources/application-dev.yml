@@ -1,0 +1,28 @@
+# Nacos配置中心服务地址
+nacos:
+  config:
+    server-addr: 127.0.0.1:8848
+    data-id: shared_power_bank_users_service-dev.properties
+    group: DEFAULT_GROUP
+    type: properties
+    bootstrap.enable: true
+    enable-remote-sync-config: true
+    namespace: 9ad8a419-e5b1-4968-9ecd-cfcefa06efe5
+#  discovery:
+#    server-addr: 127.0.0.1:8848
+
+
+    ## Nacos服务管理中心
+#dubbo:
+#  application:
+#    name: shared_power_bank_users
+#  registry:
+#    address: nacos://127.0.0.1:8848
+#  protocol:
+#    name: dubbo
+#    port: -1
+
+users:
+  service:
+    version: 0.1.0
+    address: 127.0.0.1

@@ -5,7 +5,7 @@ import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@NacosPropertySource(dataId = "allpay_web-dev.properties", autoRefreshed = true)
+
 @SpringBootApplication
 public class WebApplication {
 
