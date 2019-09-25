@@ -1,0 +1,36 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/shared_power_bank?useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 12345678
+    driverClassName: com.mysql.cj.jdbc.Driver
+# Nacos配置中心
+nacos:
+  config:
+    server-addr: 127.0.0.1:8848
+    data-id: shared_power_bank_users_service-prod.properties
+    group: DEFAULT_GROUP
+    type: properties
+    bootstrap.enable: true
+    enable-remote-sync-config: true
+    namespace: 9ad8a419-e5b1-4968-9ecd-cfcefa06efe5
+
+
+
+## Nacos服务管理中心dubbo服务注册
+dubbo:
+  application:
+    name: shared_power_bank_users
+  registry:
+    address: nacos://127.0.0.1:8848
+  scan:
+    base-packages: cn.stormbirds.sharedcharging.users.service.impl
+  protocol:
+    name: dubbo
+    port: -1
+
+users:
+  service:
+    version: 0.1.0
+    address: 127.0.0.1
