@@ -21,24 +21,8 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @NacosPropertySource(dataId = "shared_power_bank_users_service-dev.properties", autoRefreshed = true)
-@EnableDubbo(scanBasePackages = "cn.stormbirds.sharedcharging.users.service.impl")
+@EnableDubbo
 @Configuration
 public class UsersServiceRegisterConfig {
-//    @NacosInjected
-//    private NamingService namingService;
-//
-//    @NacosValue("${server.port:8082}")
-//    private int serverPort;
-//
-//    @NacosValue("${spring.application.name:shared_power_bank}")
-//    private String applicationName;
-//
-//    @NacosValue("${dubbo.service.address:127.0.0.1}")
-//    private String serverAddress;
-//
-//    @PostConstruct
-//    public void registerInstance() throws NacosException {
-//        namingService.registerInstance(applicationName,serverAddress,serverPort);
-//    }
 
 }

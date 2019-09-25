@@ -6,16 +6,16 @@ spring:
 # Nacos配置中心服务地址
 nacos:
   config:
-    server-addr: 127.0.0.1:8848
+    server-addr: 114.116.26.35:8848
     data-id: shared_power_bank_web-dev.properties
     group: DEFAULT_GROUP
     type: properties
     bootstrap.enable: true
     enable-remote-sync-config: true
-    namespace: 9ad8a419-e5b1-4968-9ecd-cfcefa06efe5
+    namespace: 7f1093be-cc98-4dac-abd0-fd101bbf6de8
 
 
-    ## Nacos服务管理中心
+## Nacos服务管理中心
 dubbo:
   application:
     name: shared_power_bank_web
@@ -27,5 +27,5 @@ dubbo:
 users:
   service:
     version: 0.1.0
-    address: 127.0.0.1
+
 

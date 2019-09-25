@@ -27,6 +27,7 @@
         <module>common</module>
         <module>model</module>
         <module>users</module>
+        <module>web</module>
     </modules>
 
     <dependencies>

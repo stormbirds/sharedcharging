@@ -1,7 +1,6 @@
 package cn.stormbirds.sharedcharging.model.users;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,15 +24,12 @@ public class SpbRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId("id")
     private Long id;
 
     @ApiModelProperty(value = "权限名")
-    @TableField("name")
     private String name;
 
     @ApiModelProperty(value = "权限描述")
-    @TableField("name_desc")
     private String nameDesc;
 
 

@@ -1,17 +1,5 @@
 package cn.stormbirds.sharedcharging.web.utils;
 
-import cn.stormbirds.sharedcharging.web.domain.auth.AuthUserDetails;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.nacos.api.config.annotation.NacosValue;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * <p>
  * cn.stormbirds.sharedcharging.web.utils

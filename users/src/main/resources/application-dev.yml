@@ -1,4 +1,4 @@
-# Nacos配置中心服务地址
+# Nacos配置中心
 nacos:
   config:
     server-addr: 127.0.0.1:8848
@@ -8,19 +8,20 @@ nacos:
     bootstrap.enable: true
     enable-remote-sync-config: true
     namespace: 9ad8a419-e5b1-4968-9ecd-cfcefa06efe5
-#  discovery:
-#    server-addr: 127.0.0.1:8848
 
 
-    ## Nacos服务管理中心
-#dubbo:
-#  application:
-#    name: shared_power_bank_users
-#  registry:
-#    address: nacos://127.0.0.1:8848
-#  protocol:
-#    name: dubbo
-#    port: -1
+
+## Nacos服务管理中心dubbo服务注册
+dubbo:
+  application:
+    name: shared_power_bank_users
+  registry:
+    address: nacos://127.0.0.1:8848
+  scan:
+    base-packages: cn.stormbirds.sharedcharging.users.service.impl
+  protocol:
+    name: dubbo
+    port: -1
 
 users:
   service:

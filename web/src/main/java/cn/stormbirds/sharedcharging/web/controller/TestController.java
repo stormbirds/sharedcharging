@@ -5,7 +5,10 @@ import cn.stormbirds.sharedcharging.common.base.BaseController;
 import cn.stormbirds.sharedcharging.web.domain.ResultJson;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -22,7 +25,7 @@ public class TestController extends BaseController {
     @NacosValue(value = "${test.name:demo}", autoRefreshed = true)
     private String userName;
 
-    @Reference
+    @Reference(version = "${users.service.version}")
     private ISpbRoleService roleService;
 
     @GetMapping(value = "/{id}")
@@ -32,6 +35,6 @@ public class TestController extends BaseController {
 
     @GetMapping(value = "/roles")
     public ResultJson getRoleList(){
-        return ResultJson.ok(roleService);
+        return ResultJson.ok(roleService.list());
     }
 }
