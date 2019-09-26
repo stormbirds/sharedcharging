@@ -13,5 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-09-20
  */
 public interface ISpbUsersService extends IService<SpbUsers> {
-
+    boolean login(String username, String password);
+    boolean findByUsername(String username);
+    SpbUsers register(String username,String password);
 }

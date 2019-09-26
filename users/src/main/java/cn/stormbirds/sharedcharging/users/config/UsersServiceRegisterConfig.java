@@ -1,15 +1,12 @@
 package cn.stormbirds.sharedcharging.users.config;
 
-import com.alibaba.nacos.api.annotation.NacosInjected;
+import cn.stormbirds.sharedcharging.common.utils.IdCenter;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
-import com.alibaba.nacos.api.exception.NacosException;
-import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>
@@ -25,4 +22,11 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class UsersServiceRegisterConfig {
 
+    @NacosValue(value = "${users.idcenter.datacenterId:0}")
+    private long dataCenterId;
+
+    @Bean
+    public IdCenter idCenter(){
+        return IdCenter.INSTENSE.init(dataCenterId,0,"Users service Id生成器服务");
+    }
 }
