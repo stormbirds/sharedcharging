@@ -1,5 +1,9 @@
 package cn.stormbirds.sharedcharging.web.domain.auth;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,8 +18,10 @@ import java.util.Collection;
  * @author StormBirds Email：xbaojun@gmail.com
  * @since 2019/9/20 16:11
  */
-
-
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthUserDetails implements UserDetails {
     private Long id;
 
