@@ -29,7 +29,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @ApiModel(value="SpbUsers对象", description="用户表")
 public class SpbUsers implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -2022787890499999176L;
 
     private Long id;
 
@@ -44,7 +44,6 @@ public class SpbUsers implements Serializable {
     private Boolean enabled;
 
     @ApiModelProperty(value = "用户是否被锁定")
-    @TableField(value = "")
     private Boolean accountNonLocked;
 
     @ApiModelProperty(value = "用户上次更新密码时间")
@@ -52,7 +51,7 @@ public class SpbUsers implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastPasswordResetDate;
 
-    @ApiModelProperty(value = "用户创建时间")
+    @ApiModelProperty(value = "用户创建时间",hidden = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;

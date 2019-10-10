@@ -1,13 +1,18 @@
 package cn.stormbirds.sharedcharging.web.domain.auth;
 
+import cn.stormbirds.sharedcharging.model.users.SpbRole;
+import cn.stormbirds.sharedcharging.model.users.SpbUsers;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -20,7 +25,6 @@ import java.util.Collection;
  */
 @Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class AuthUserDetails implements UserDetails {
     private Long id;
@@ -33,11 +37,57 @@ public class AuthUserDetails implements UserDetails {
 
     private Boolean accountNonLocked;
 
+    /**
+     * 用户角色权限
+     */
+    private final Collection<? extends GrantedAuthority> authorities;
+
+    /**
+     * 账号是否过期
+     */
+    private final Boolean isAccountNonExpired;
+
+    /**
+     * 密码是否过期
+     */
+    private final Boolean isCredentialsNonExpired;
+
     private LocalDateTime lastPasswordResetDate;
+
+    public AuthUserDetails(Long userId, String username, String password, boolean account_enabled, boolean account_non_expired,
+                           boolean isCredentialsNonExpired, boolean account_non_locked, Collection<? extends GrantedAuthority> authorities) {
+        if (username != null && !"".equals(username) && password != null) {
+            this.id = userId;
+            this.username = username;
+            this.password = password;
+            this.enabled = account_enabled;
+            this.isAccountNonExpired = account_non_expired;
+            this.accountNonLocked = account_non_locked;
+            this.isCredentialsNonExpired = isCredentialsNonExpired;
+            this.authorities = authorities;
+            this.lastPasswordResetDate = lastPasswordResetDate;
+        } else {
+            throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
+        }
+    }
+
+    public AuthUserDetails(SpbUsers user, SpbRole role) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.enabled = user.getEnabled();
+        this.isAccountNonExpired = true;
+        this.accountNonLocked = user.getAccountNonLocked();
+        this.isCredentialsNonExpired = true;
+        this.authorities = role != null ? new ArrayList<GrantedAuthority>() {{
+            add(new SimpleGrantedAuthority(role.getName()));
+        }} : new ArrayList<>();
+        this.lastPasswordResetDate = user.getLastPasswordResetDate();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.authorities;
     }
 
     @Override

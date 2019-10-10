@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import cn.stormbirds.sharedcharging.common.utils.DateTimeUtils;
+import cn.stormbirds.sharedcharging.model.users.SpbUsers;
 import cn.stormbirds.sharedcharging.web.domain.auth.AuthUserDetails;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
 import org.springframework.security.core.GrantedAuthority;
@@ -54,30 +55,34 @@ public class JWTUtils {
     private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256;
 
     public AuthUserDetails getUserFromToken(String token) {
-        AuthUserDetails user;
+        AuthUserDetails userDetails;
         try {
             final Claims claims = getClaimsFromToken(token);
-            String userId = getUserIdFromToken(token);
+            Long userId = getUserIdFromToken(token);
             String username = claims.getSubject();
             List roles = (List) claims.get(CLAIM_KEY_AUTHORITIES);
             Collection<? extends GrantedAuthority> authorities = parseArrayToAuthorities(roles);
             boolean account_enabled = (Boolean) claims.get(CLAIM_KEY_ACCOUNT_ENABLED);
             boolean account_non_locked = (Boolean) claims.get(CLAIM_KEY_ACCOUNT_NON_LOCKED);
             boolean account_non_expired = (Boolean) claims.get(CLAIM_KEY_ACCOUNT_NON_EXPIRED);
-
-            user = new AuthUserDetails(userId, username, "password", account_enabled, account_non_expired, true, account_non_locked, authorities);
+            SpbUsers user = SpbUsers.builder()
+                    .id(userId)
+                    .username(username)
+                    .accountNonLocked(account_non_locked)
+                    .enabled(account_enabled)
+                    .build();
+            userDetails = new AuthUserDetails(userId, username, "password", account_enabled, account_non_expired, true, account_non_locked, authorities);
         } catch (Exception e) {
-            user = null;
+            userDetails = null;
         }
-        return user;
+        return userDetails;
     }
 
     public AuthUserDetails getUserFromToken(Claims claims) {
         AuthUserDetails user;
         try {
-            //final Claims claims = getClaimsFromToken(token);
-            String userId = claims.get(CLAIM_KEY_USER_ID).toString();//getUserIdFromToken(token);
-            String username = claims.get(CLAIM_KEY_USER_ID).toString();//claims.getSubject();
+            Long userId = Long.valueOf(claims.get(CLAIM_KEY_USER_ID).toString()) ;
+            String username = claims.get(CLAIM_KEY_USER_ID).toString();
             List roles = (List) claims.get(CLAIM_KEY_AUTHORITIES);
             Collection<? extends GrantedAuthority> authorities = parseArrayToAuthorities(roles);
             boolean account_enabled = (Boolean) claims.get(CLAIM_KEY_ACCOUNT_ENABLED);
@@ -91,13 +96,13 @@ public class JWTUtils {
         return user;
     }
 
-    public String getUserIdFromToken(String token) {
-        String userId;
+    public Long getUserIdFromToken(String token) {
+        Long userId;
         try {
             final Claims claims = getClaimsFromToken(token);
-            userId = claims.get(CLAIM_KEY_USER_ID).toString();
+            userId = Long.valueOf(claims.get(CLAIM_KEY_USER_ID).toString()) ;
         } catch (Exception e) {
-            userId = "";
+            userId = -1L;
         }
         return userId;
     }
@@ -148,15 +153,32 @@ public class JWTUtils {
         return claims;
     }
 
+    /**
+     * 生成Token过期时间
+     * @param expiration Token有效时间单位ms
+     * @return
+     */
     private Date generateExpirationDate(long expiration) {
         return new Date(System.currentTimeMillis() + expiration * 1000);
     }
 
+    /**
+     * Token 是否过期
+     *
+     * @param token
+     * @return
+     */
     private Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
 
+    /**
+     * Token创建时间是否在修改密码之前
+     * @param created Token创建时间
+     * @param lastPasswordReset 上次修改密码时间
+     * @return 是否在修改密码之前
+     */
     private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
         return (lastPasswordReset != null && created.before(lastPasswordReset));
     }
@@ -176,7 +198,7 @@ public class JWTUtils {
     }
 
     private Map<String, Object> generateClaims(AuthUserDetails user) {
-        Map<String, Object> claims = new HashMap<>();
+        Map<String, Object> claims = new HashMap<>(16);
         claims.put(CLAIM_KEY_USER_ID, user.getId());
         claims.put(CLAIM_KEY_ACCOUNT_ENABLED, user.isEnabled());
         claims.put(CLAIM_KEY_ACCOUNT_NON_LOCKED, user.isAccountNonLocked());
@@ -248,16 +270,15 @@ public class JWTUtils {
                 .compact();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        AuthUserDetails user = (AuthUserDetails) userDetails;
-        final String userId = getUserIdFromToken(token);
+    public Boolean validateToken(String token, AuthUserDetails userDetails) {
+        final Long userId = getUserIdFromToken(token);
         final String username = getUsernameFromToken(token);
          final Date created = getCreatedDateFromToken(token);
          final Date expiration = getExpirationDateFromToken(token);
-        return (userId.equals(user.getId())
-                && username.equals(user.getUsername())
+        return (userId.equals(userDetails.getId())
+                && username.equals(userDetails.getUsername())
                 && !isTokenExpired(token)
-                 && !isCreatedBeforeLastPasswordReset(created, DateTimeUtils.localDateTime2DateTime(((AuthUserDetails) userDetails).getLastPasswordResetDate()))
+                 && !isCreatedBeforeLastPasswordReset(created, DateTimeUtils.localDateTime2DateTime(userDetails.getLastPasswordResetDate()))
                 && expiration.after(new Date())
         );
     }
