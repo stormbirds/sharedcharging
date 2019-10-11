@@ -55,7 +55,8 @@ public class AuthUserDetails implements UserDetails {
     private LocalDateTime lastPasswordResetDate;
 
     public AuthUserDetails(Long userId, String username, String password, boolean account_enabled, boolean account_non_expired,
-                           boolean isCredentialsNonExpired, boolean account_non_locked, Collection<? extends GrantedAuthority> authorities) {
+                           boolean isCredentialsNonExpired, boolean account_non_locked, Collection<? extends GrantedAuthority> authorities,
+                           LocalDateTime lastPasswordResetDate) {
         if (username != null && !"".equals(username) && password != null) {
             this.id = userId;
             this.username = username;
@@ -92,31 +93,31 @@ public class AuthUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return this.accountNonLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

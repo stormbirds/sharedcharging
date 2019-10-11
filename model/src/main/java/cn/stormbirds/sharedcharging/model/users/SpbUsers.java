@@ -6,6 +6,7 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -26,6 +27,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @ApiModel(value="SpbUsers对象", description="用户表")
 public class SpbUsers implements Serializable {
 
@@ -37,7 +39,7 @@ public class SpbUsers implements Serializable {
     private String username;
 
     @ApiModelProperty(value = "用户登录密码")
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @ApiModelProperty(value = "用户是否启用")

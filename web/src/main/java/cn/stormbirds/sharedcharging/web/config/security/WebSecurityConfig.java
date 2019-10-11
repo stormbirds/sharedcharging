@@ -60,13 +60,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
     // 装载BCrypt密码编码器
-    @Bean
+    @Bean(value = "defaultPasswordEncoder")
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+
         httpSecurity
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler).and()
                 // 由于使用的是JWT，我们这里不需要csrf
@@ -98,7 +99,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-resources/configuration/ui",
                 "/swagger-resources",
                 "/swagger-resources/configuration/security",
-                "/swagger-ui.html"
+                "/swagger-resources/**",
+                "/swagger-ui.html",
+                "/favicon.ico",
+                "/**/*.css",
+                "/**/*.js",
+                "/**/*.png",
+                "/**/*.gif",
+                "/**/*.ttf",
+                "/**/*.woff2",
+                "/**/*.woff"
         );
     }
 

@@ -17,6 +17,6 @@ import org.springframework.context.annotation.Role;
 public interface ISpbUsersService extends IService<SpbUsers> {
     boolean login(String username, String password);
     SpbUsers findByUsername(String username);
-    SpbUsers register(String username,String password);
+    SpbUsers register(SpbUsers user);
     SpbRole findRoleByUserId(Long userId);
 }

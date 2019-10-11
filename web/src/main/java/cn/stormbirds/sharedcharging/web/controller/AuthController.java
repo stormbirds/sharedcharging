@@ -2,13 +2,17 @@ package cn.stormbirds.sharedcharging.web.controller;
 
 import cn.stormbirds.sharedcharging.api.users.ISpbUsersService;
 import cn.stormbirds.sharedcharging.model.users.SpbUsers;
+import cn.stormbirds.sharedcharging.web.config.security.AuthServiceImpl;
+import cn.stormbirds.sharedcharging.web.domain.ResponseUserToken;
 import cn.stormbirds.sharedcharging.web.domain.ResultCode;
 import cn.stormbirds.sharedcharging.web.domain.ResultJson;
+import cn.stormbirds.sharedcharging.web.utils.JWTUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -18,29 +22,35 @@ import org.springframework.web.bind.annotation.RestController;
  * @author StormBirds Email：xbaojun@gmail.com
  * @since 2019/9/26 下午11:40
  */
+@Api(tags = "Auth认证服务")
 @RestController
 @RequestMapping(value = "/api/v1/auth")
 public class AuthController {
 
     @Reference(version = "${users.service.version}")
     private ISpbUsersService usersService;
+    @Autowired
+    private AuthServiceImpl authService;
 
+
+    @ApiOperation(value = "登陆接口，获取Token")
     @PostMapping(value = "/login")
     public ResultJson loginByUsernameAndPassword(@RequestParam String username, @RequestParam String password) {
-        if (usersService.login(username, password)) {
-            return ResultJson.ok();
+        final ResponseUserToken userToken = authService.login(username,password);
+        if (userToken!=null) {
+            return ResultJson.ok(userToken);
         } else {
             return ResultJson.failure(ResultCode.LOGIN_ERROR);
         }
     }
 
+    @ApiOperation(value = "登陆接口，获取Token")
     @PostMapping(value = "/register")
-    public ResultJson register(@RequestParam String username, @RequestParam String password) {
-
-        SpbUsers user = usersService.register(username, password);
-        if (user == null) {
+    public ResultJson register(@RequestBody SpbUsers user) {
+        final SpbUsers userRegistered = authService.register(user);
+        if (userRegistered == null) {
             return ResultJson.failure(ResultCode.SERVER_ERROR);
         }
-        return ResultJson.ok(user);
+        return ResultJson.ok(userRegistered);
     }
 }

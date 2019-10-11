@@ -18,7 +18,7 @@ public enum ResultCode {
     UNAUTHORIZED(401, "未授权，或者权限不足"),
     LOGIN_ERROR(401, "登陆失败，用户名或密码无效"),
     SMS_CODE_ERROR(401,"验证码无效"),
-    FORBIDDEN(403, "禁止访问"),
+    FORBIDDEN(403, "禁止访问,权限不足"),
     NOT_FOUND(404, "请求的资源不存在"),
     ERROR_MONEY(404, "钱包余额错误"),
     USER_NOT_FOUND(404, "用户不存在"),
