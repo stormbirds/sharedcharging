@@ -2,9 +2,12 @@ package cn.stormbirds.sharedcharging.web.controller;
 
 import cn.stormbirds.sharedcharging.api.users.ISpbRoleService;
 import cn.stormbirds.sharedcharging.common.base.BaseController;
+import cn.stormbirds.sharedcharging.common.utils.RedisUtil;
 import cn.stormbirds.sharedcharging.web.domain.ResultJson;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
+import io.swagger.annotations.Api;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +19,13 @@ import org.springframework.web.bind.annotation.*;
  * @author StormBirds Email：xbaojun@gmail.com
  * @since 2019/9/17 15:25
  */
+@Api(tags = "测试控制器")
 @RestController
 @RequestMapping(value = "/api/v1/test")
 public class TestController extends BaseController {
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @NacosValue(value = "${test.name:demo}", autoRefreshed = true)
     private String userName;
@@ -51,5 +58,11 @@ public class TestController extends BaseController {
     @GetMapping(value = "/roles")
     public ResultJson getRoleList(){
         return ResultJson.ok(roleService.list());
+    }
+
+    @GetMapping(value = "/redis")
+    public ResultJson testRedis(){
+        redisUtil.set("test","test_value",6000L);
+        return ResultJson.ok(redisUtil.get("test"));
     }
 }

@@ -19,8 +19,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.time.LocalDateTime;
-
 import static cn.stormbirds.sharedcharging.model.users.RoleNames.ROLE_USER;
 
 /**
@@ -44,12 +42,6 @@ public class SpbUsersServiceImpl extends ServiceImpl<SpbUsersMapper, SpbUsers> i
     private ISpbUserRoleService userRoleService;
 
     @Override
-    public boolean login(String username, String password) {
-
-        return false;
-    }
-
-    @Override
     public SpbUsers findByUsername(String username) {
         return baseMapper.selectOne(Wrappers.<SpbUsers>lambdaQuery()
                 .eq(SpbUsers::getUsername, username));
@@ -58,7 +50,7 @@ public class SpbUsersServiceImpl extends ServiceImpl<SpbUsersMapper, SpbUsers> i
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public SpbUsers register(SpbUsers user) {
-        if(this.save(user, ROLE_USER)){
+        if (this.save(user, ROLE_USER)) {
             return user;
         }
         return null;
@@ -80,7 +72,7 @@ public class SpbUsersServiceImpl extends ServiceImpl<SpbUsersMapper, SpbUsers> i
         user.setId(idCenter.getId());
         SpbRole role = roleService.getOne(Wrappers.<SpbRole>lambdaQuery().eq(SpbRole::getName, roleNames.name()));
         if (role == null) {
-            log.error(String.format("Not Found SpbRole of %s for %s when save UserRole. " , roleNames.name() ,user.toString()) );
+            log.error(String.format("Not Found SpbRole of %s for %s when save UserRole. ", roleNames.name(), user.toString()));
             return false;
         }
         SpbUserRole userRole = new SpbUserRole();
@@ -90,11 +82,11 @@ public class SpbUsersServiceImpl extends ServiceImpl<SpbUsersMapper, SpbUsers> i
         if (userRoleService.save(userRole)) {
             if (super.save(user)) {
                 return true;
-            } else {
-                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                log.error("User save failure to database, " + user.toString());
-                return false;
             }
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            log.error("User save failure to database, " + user.toString());
+            return false;
+
         }
         log.error("SpbUserRole save failure to database, " + userRole.toString());
         return false;

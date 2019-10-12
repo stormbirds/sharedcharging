@@ -11,19 +11,17 @@ import org.springframework.stereotype.Component;
 
 
 /**
- *
  * <p> 登陆身份认证
  * </p>
+ *
  * @author StormBirds Email：xbaojun@gmail.com
  * @since 2019/9/20 15:54
- *
  */
-@Component(value="CustomUserDetailsService")
+@Component(value = "CustomUserDetailsService")
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     @Reference(version = "${users.service.version}")
     private ISpbUsersService usersService;
-
 
 
     @Override
@@ -33,6 +31,6 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", name));
         }
         SpbRole role = usersService.findRoleByUserId(user.getId());
-        return new AuthUserDetails(user,role);
+        return new AuthUserDetails(user, role);
     }
 }

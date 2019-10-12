@@ -11,7 +11,7 @@
 	<artifactId>common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>common</name>
-	<description>Demo project for Spring Boot</description>
+	<description>公共模块，提供公共工具类等</description>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -24,6 +24,26 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<!--redis服务-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-extension</artifactId>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 

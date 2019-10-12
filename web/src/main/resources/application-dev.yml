@@ -2,6 +2,28 @@
 spring:
   resources:
     static-locations: classpath:/templates/
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    # Redis单机部署默认情况下有16个分片，这里配置具体使用的分片
+    database: 0
+    # 连接超时时间（记得添加单位，Duration）
+    timeout: 8000ms
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-wait: 6000ms
+        # 连接池中的最大空闲连接 默认 8
+        max-idle: 100
+        # 连接池中的最小空闲连接 默认 0
+        min-idle: 50
+  cache:
+    # 一般来说是不用配置的，Spring Cache 会根据依赖的包自行装配
+    type: redis
+    redis:
+      time-to-live.seconds: 3600
 
 # Nacos配置中心服务地址
 nacos:

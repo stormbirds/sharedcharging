@@ -12,7 +12,7 @@
     <artifactId>shared-charging-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Shared Charging</name>
-    <description>Demo project for Spring Boot</description>
+    <description>共享充电宝项目父模块</description>
 
     <packaging>pom</packaging>
 
@@ -30,6 +30,7 @@
     <modules>
         <module>api</module>
         <module>common</module>
+        <module>equipment</module>
         <module>model</module>
         <module>users</module>
         <module>web</module>
@@ -63,6 +64,11 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>

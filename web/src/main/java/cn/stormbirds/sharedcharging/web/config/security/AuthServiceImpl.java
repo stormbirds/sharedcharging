@@ -59,7 +59,6 @@ public class AuthServiceImpl {
         if (usersService.findByUsername(user.getUsername()) != null) {
             throw new CustomControllerException(ResultJson.failure(ResultCode.BAD_REQUEST, "该用户名已经被注册"));
         }
-
         final String rawPassword = user.getPassword();
         user.setPassword(passwordEncoder.encode(rawPassword));
         user.setLastPasswordResetDate(LocalDateTime.now());
@@ -71,6 +70,5 @@ public class AuthServiceImpl {
             return userRegistered;
         }
         return null;
-
     }
 }

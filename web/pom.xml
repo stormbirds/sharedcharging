@@ -11,7 +11,7 @@
     <artifactId>web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>web</name>
-    <description>Demo project for Spring Boot</description>
+    <description>前端控制前及所有对外接口服务，包括所有接口及页面</description>
     <packaging>jar</packaging>
 
     <properties>

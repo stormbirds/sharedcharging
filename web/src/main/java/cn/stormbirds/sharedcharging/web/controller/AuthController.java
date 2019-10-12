@@ -1,17 +1,13 @@
 package cn.stormbirds.sharedcharging.web.controller;
 
-import cn.stormbirds.sharedcharging.api.users.ISpbUsersService;
 import cn.stormbirds.sharedcharging.model.users.SpbUsers;
 import cn.stormbirds.sharedcharging.web.config.security.AuthServiceImpl;
 import cn.stormbirds.sharedcharging.web.domain.ResponseUserToken;
 import cn.stormbirds.sharedcharging.web.domain.ResultCode;
 import cn.stormbirds.sharedcharging.web.domain.ResultJson;
-import cn.stormbirds.sharedcharging.web.utils.JWTUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -27,10 +23,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/v1/auth")
 public class AuthController {
 
-    @Reference(version = "${users.service.version}")
-    private ISpbUsersService usersService;
+    private final AuthServiceImpl authService;
+
     @Autowired
-    private AuthServiceImpl authService;
+    public AuthController(AuthServiceImpl authService) {
+        this.authService = authService;
+    }
 
 
     @ApiOperation(value = "登陆接口，获取Token")

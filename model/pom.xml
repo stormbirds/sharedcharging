@@ -11,7 +11,7 @@
     <artifactId>model</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>model</name>
-    <description>Demo project for Spring Boot</description>
+    <description>业务模型及数据模型等定义</description>
     <packaging>jar</packaging>
 
     <properties>

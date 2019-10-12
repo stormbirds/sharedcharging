@@ -11,7 +11,7 @@
     <artifactId>users</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>users</name>
-    <description>Demo project for Spring Boot</description>
+    <description>用户系统服务，会员系统、代理商、管理员操作、用户注册登录等</description>
     <packaging>jar</packaging>
 
     <properties>
