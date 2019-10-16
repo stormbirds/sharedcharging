@@ -24,6 +24,8 @@ dubbo:
     port: -1
 
 users:
+  idcenter:
+    datacenterId: 0
   service:
     version: 0.1.0
     address: 127.0.0.1
