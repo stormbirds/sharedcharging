@@ -4,6 +4,7 @@ import cn.stormbirds.sharedcharging.common.config.MqttConfig;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -14,7 +15,7 @@ import org.springframework.messaging.handler.annotation.Header;
  * @author StormBirds Email：xbaojun@gmail.com
  * @since 2019/10/17 上午1:22
  */
-@MessagingGateway(defaultRequestChannel = MqttConfig.CHANNEL_NAME_OUT)
+
 public interface IMqttSenderService {
     /**
      * 发送信息到MQTT服务器

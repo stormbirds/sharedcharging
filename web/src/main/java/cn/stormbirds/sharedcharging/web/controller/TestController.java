@@ -1,15 +1,19 @@
 package cn.stormbirds.sharedcharging.web.controller;
 
+import cn.stormbirds.sharedcharging.api.common.IMqttSenderService;
 import cn.stormbirds.sharedcharging.api.users.ISpbRoleService;
 import cn.stormbirds.sharedcharging.common.base.BaseController;
 import cn.stormbirds.sharedcharging.common.utils.RedisUtil;
 import cn.stormbirds.sharedcharging.web.domain.ResultJson;
+import cn.stormbirds.sharedcharging.web.utils.MqttSender;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
 import io.swagger.annotations.Api;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -32,6 +36,9 @@ public class TestController extends BaseController {
 
     @Reference(version = "${users.service.version}")
     private ISpbRoleService roleService;
+
+    @Resource
+    private MqttSender mqttSenderService;
 
     /**
      * 拥有ROLE_ADMIN或者ROLE_USER权限的用户才有权限调用此方法
@@ -64,5 +71,11 @@ public class TestController extends BaseController {
     public ResultJson testRedis(){
         redisUtil.set("test","test_value",6000L);
         return ResultJson.ok(redisUtil.get("test"));
+    }
+
+    @PostMapping(value = "/mqttsend")
+    public ResultJson mqttSendTest(@RequestParam String topic,@RequestParam int qos){
+        mqttSenderService.sendToMqtt(topic,qos,"{ \"msg\": \"Hello, World Test!\" }");
+        return ResultJson.ok();
     }
 }

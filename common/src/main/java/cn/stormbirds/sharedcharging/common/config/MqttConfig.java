@@ -38,25 +38,25 @@ public class MqttConfig {
      */
     public static final String CHANNEL_NAME_OUT = "mqttOutboundChannel";
 
-    @NacosValue("${mqtt.username}")
+    @NacosValue("${mqtt.username:admin}")
     private String username;
 
-    @NacosValue("${mqtt.password}")
+    @NacosValue("${mqtt.password:public}")
     private String password;
 
-    @NacosValue("${mqtt.url}")
+    @NacosValue("${mqtt.url:tcp://192.168.50.10:1883}")
     private String url;
 
-    @NacosValue("${mqtt.producer.clientId}")
+    @NacosValue("${mqtt.producer.clientId:producer}")
     private String producerClientId;
 
-    @NacosValue("${mqtt.producer.defaultTopic}")
+    @NacosValue("${mqtt.producer.defaultTopic:producerTopic}")
     private String producerDefaultTopic;
 
-    @NacosValue("${mqtt.consumer.clientId}")
+    @NacosValue("${mqtt.consumer.clientId:consumer}")
     private String consumerClientId;
 
-    @NacosValue("${mqtt.consumer.defaultTopic}")
+    @NacosValue("${mqtt.consumer.defaultTopic:consumerTopic}")
     private String consumerDefaultTopic;
 
     private static final byte[] WILL_DATA;
@@ -77,11 +77,11 @@ public class MqttConfig {
         // 这里设置为true表示每次连接到服务器都以新的身份连接
         options.setCleanSession(true);
         // 设置连接的用户名
-        options.setUserName(username);
+//        options.setUserName(username);
         // 设置连接的密码
-        options.setPassword(password.toCharArray());
-        assert StringUtils.split(url, ",") != null;
-        options.setServerURIs(StringUtils.split(url, ","));
+//        options.setPassword(password.toCharArray());
+//        assert StringUtils.split(url, ",") != null;
+        options.setServerURIs(/*StringUtils.split(url, ",")*/"tcp://192.168.50.10:1883".split(","));
         // 设置超时时间 单位为秒
         options.setConnectionTimeout(10);
         // 设置会话心跳时间 单位为秒 服务器会每隔1.5*20秒的时间向客户端发送心跳判断客户端是否在线，但这个方法并没有重连的机制
@@ -138,11 +138,11 @@ public class MqttConfig {
     @Bean
     public MessageProducer inbound() {
         // 可以同时消费（订阅）多个Topic
-        assert StringUtils.split(consumerDefaultTopic, ",") != null;
+//        assert StringUtils.split(consumerDefaultTopic, ",") != null;
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(
                         consumerClientId, mqttClientFactory(),
-                        StringUtils.split(consumerDefaultTopic, ","));
+                        "consumerDefaultTopic".split(","));
         adapter.setCompletionTimeout(5000);
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);
