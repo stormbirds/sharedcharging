@@ -1,6 +1,5 @@
 package cn.stormbirds.sharedcharging.web.controller;
 
-import cn.stormbirds.sharedcharging.api.common.IMqttSenderService;
 import cn.stormbirds.sharedcharging.api.users.ISpbRoleService;
 import cn.stormbirds.sharedcharging.common.base.BaseController;
 import cn.stormbirds.sharedcharging.common.utils.RedisUtil;

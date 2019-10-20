@@ -65,6 +65,15 @@
 			<version>RELEASE</version>
 			<scope>compile</scope>
 		</dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>cn.stormbirds.sharedcharging</groupId>
+			<artifactId>model</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

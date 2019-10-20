@@ -1,8 +1,13 @@
-package cn.stormbirds.sharedcharging.common.config;
+package cn.stormbirds.sharedcharging.equipment.config;
 
+
+import cn.stormbirds.sharedcharging.api.mqtt.IMqttOnlineService;
+import cn.stormbirds.sharedcharging.model.mqtt.ConnectedPayload;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -15,7 +20,6 @@ import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
-import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -37,6 +41,7 @@ public class MqttConfig {
      * 发布的bean名称
      */
     public static final String CHANNEL_NAME_OUT = "mqttOutboundChannel";
+
 
     @NacosValue("${mqtt.username:admin}")
     private String username;
@@ -64,6 +69,9 @@ public class MqttConfig {
     static {
         WILL_DATA = "offline".getBytes();
     }
+
+    @Autowired
+    private IMqttOnlineService mqttOnlineService;
 
     /**
      * MQTT连接器选项
@@ -142,7 +150,7 @@ public class MqttConfig {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(
                         consumerClientId, mqttClientFactory(),
-                        "consumerDefaultTopic".split(","));
+                        "$SYS/brokers/+/clients/#".split(","));
         adapter.setCompletionTimeout(5000);
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);
@@ -169,6 +177,21 @@ public class MqttConfig {
     @Bean
     @ServiceActivator(inputChannel = CHANNEL_NAME_IN)
     public MessageHandler handler() {
-        return message -> log.error("===================={}============", message.getPayload());
+
+        return message -> {
+            Gson gson = new Gson();
+            ConnectedPayload connectedPayload = gson.fromJson((String) message.getPayload(), ConnectedPayload.class);
+            String receivedTopic = (String) message.getHeaders().get("mqtt_receivedTopic");
+            if (receivedTopic != null &&
+                    receivedTopic.startsWith("$SYS/brokers/") &&
+                    receivedTopic.endsWith("/connected")) {
+                mqttOnlineService.onLine(connectedPayload.getClientid());
+            } else if (receivedTopic != null &&
+                    receivedTopic.startsWith("$SYS/brokers/") &&
+                    receivedTopic.endsWith("/disconnected")) {
+                mqttOnlineService.offline(connectedPayload.getClientid());
+            }
+            log.error("========={}==========={}============", message.getHeaders(), message.getPayload());
+        };
     }
 }

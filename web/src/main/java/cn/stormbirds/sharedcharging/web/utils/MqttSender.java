@@ -1,6 +1,5 @@
 package cn.stormbirds.sharedcharging.web.utils;
 
-import cn.stormbirds.sharedcharging.api.common.IMqttSenderService;
 import cn.stormbirds.sharedcharging.common.config.MqttConfig;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.mqtt.support.MqttHeaders;
