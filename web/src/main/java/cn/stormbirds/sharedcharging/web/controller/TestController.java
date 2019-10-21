@@ -30,7 +30,7 @@ public class TestController extends BaseController {
     @Autowired
     private RedisUtil redisUtil;
 
-    @NacosValue(value = "${test.name:demo}", autoRefreshed = true)
+    @NacosValue(value = "${test.name:tcp://wifi.stormbirds.cn:1883}", autoRefreshed = true)
     private String userName;
 
     @Reference(version = "${users.service.version}")

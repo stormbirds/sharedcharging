@@ -21,6 +21,10 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
+import static cn.stormbirds.sharedcharging.common.config.MqttConstants.CHANNEL_NAME_IN;
+import static cn.stormbirds.sharedcharging.common.config.MqttConstants.CHANNEL_NAME_OUT;
+import static cn.stormbirds.sharedcharging.common.config.MqttConstants.WILL_DATA;
+
 /**
  * <p>
  * MQTT配置，生产者
@@ -33,15 +37,6 @@ import org.springframework.messaging.MessageHandler;
 @Configuration
 public class MqttConfig {
 
-    /**
-     * 订阅的bean名称
-     */
-    public static final String CHANNEL_NAME_IN = "mqttInboundChannel";
-    /**
-     * 发布的bean名称
-     */
-    public static final String CHANNEL_NAME_OUT = "mqttOutboundChannel";
-
 
     @NacosValue("${mqtt.username:admin}")
     private String username;
@@ -49,7 +44,7 @@ public class MqttConfig {
     @NacosValue("${mqtt.password:public}")
     private String password;
 
-    @NacosValue("${mqtt.url:tcp://192.168.50.10:1883}")
+    @NacosValue("${mqtt.url:tcp://wifi.stormbirds.cn:1883}")
     private String url;
 
     @NacosValue("${mqtt.producer.clientId:producer}")
@@ -64,11 +59,6 @@ public class MqttConfig {
     @NacosValue("${mqtt.consumer.defaultTopic:consumerTopic}")
     private String consumerDefaultTopic;
 
-    private static final byte[] WILL_DATA;
-
-    static {
-        WILL_DATA = "offline".getBytes();
-    }
 
     @Autowired
     private IMqttOnlineService mqttOnlineService;
