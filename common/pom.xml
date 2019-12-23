@@ -59,6 +59,8 @@
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-mqtt</artifactId>
 		</dependency>
+
+
 		<dependency>
 			<groupId>com.alibaba.nacos</groupId>
 			<artifactId>nacos-api</artifactId>

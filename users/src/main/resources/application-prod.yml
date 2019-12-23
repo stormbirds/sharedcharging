@@ -8,7 +8,7 @@ spring:
 # Nacos配置中心
 nacos:
   config:
-    server-addr: 127.0.0.1:8848
+    server-addr: wifi.stormbirds.cn:8848
     data-id: shared_power_bank_users_service-prod.properties
     group: DEFAULT_GROUP
     type: properties
@@ -23,7 +23,7 @@ dubbo:
   application:
     name: shared_power_bank_users
   registry:
-    address: nacos://127.0.0.1:8848
+    address: nacos://wifi.stormbirds.cn:8848
   scan:
     base-packages: cn.stormbirds.sharedcharging.users.service.impl
   protocol:
@@ -33,4 +33,4 @@ dubbo:
 users:
   service:
     version: 0.1.0
-    address: 127.0.0.1
+    address: wifi.stormbirds.cn

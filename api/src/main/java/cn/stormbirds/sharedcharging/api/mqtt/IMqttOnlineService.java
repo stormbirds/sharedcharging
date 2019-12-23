@@ -13,6 +13,17 @@ package cn.stormbirds.sharedcharging.api.mqtt;
 
 public interface IMqttOnlineService {
 
-    void onLine(String clientId);
-    void offline(String clientId);
+    /**
+     * 设备上线操作
+     * @param clientId 设备唯一识别码
+     * @return 返回操作码 1操作成功、0操作失败
+     */
+    int onLine(String clientId);
+
+    /**
+     * 设备下线操作
+     * @param clientId 设备唯一识别码
+     * @return 返回操作码 1操作成功、0操作失败
+     */
+    int offline(String clientId);
 }

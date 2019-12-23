@@ -7,9 +7,10 @@ spring:
   resources:
     static-locations: classpath:/templates/
   redis:
-    host: 127.0.0.1
+    host: wifi.stormbirds.cn
     port: 6379
     # Redis单机部署默认情况下有16个分片，这里配置具体使用的分片
+    password: z7zg08KUTQDa
     database: 0
     # 连接超时时间（记得添加单位，Duration）
     timeout: 8000ms
@@ -32,7 +33,7 @@ spring:
 # Nacos配置中心服务地址
 nacos:
   config:
-    server-addr: 114.116.26.35:8848
+    server-addr: wifi.stormbirds.cn:8848
     data-id: shared_power_bank_web-dev.properties
     group: DEFAULT_GROUP
     type: properties
@@ -46,7 +47,7 @@ dubbo:
   application:
     name: shared_power_bank_web
   registry:
-    address: nacos://127.0.0.1:8848
+    address: nacos://wifi.stormbirds.cn:8848
   consumer:
     timeout: 3000
 
