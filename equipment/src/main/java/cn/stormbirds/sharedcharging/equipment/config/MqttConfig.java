@@ -79,7 +79,7 @@ public class MqttConfig {
         // 设置连接的密码
 //        options.setPassword(password.toCharArray());
 //        assert StringUtils.split(url, ",") != null;
-        options.setServerURIs(/*StringUtils.split(url, ",")*/"tcp://222.90.40.103:1883".split(","));
+        options.setServerURIs(/*StringUtils.split(url, ",")*/"tcp://wifi.stormbirds.cn:1883".split(","));
         // 设置超时时间 单位为秒
         options.setConnectionTimeout(10);
         // 设置会话心跳时间 单位为秒 服务器会每隔1.5*20秒的时间向客户端发送心跳判断客户端是否在线，但这个方法并没有重连的机制

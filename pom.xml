@@ -111,6 +111,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>2.9.10</version>
+            </dependency>
+
+            <dependency>
                 <groupId>cn.stormbirds.sharedcharging</groupId>
                 <artifactId>api</artifactId>
                 <version>${project.version}</version>

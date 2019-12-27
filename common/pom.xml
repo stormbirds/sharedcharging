@@ -68,10 +68,10 @@
 			<scope>compile</scope>
 		</dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-        </dependency>
+        </dependency>-->
 		<dependency>
 			<groupId>cn.stormbirds.sharedcharging</groupId>
 			<artifactId>model</artifactId>
