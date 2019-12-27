@@ -101,14 +101,21 @@ nacos:
 ## Nacos服务管理中心
 dubbo:
   application:
-    name: shared_power_bank_web
+    name: shared_power_bank_equipment
   registry:
     address: nacos://wifi.stormbirds.cn:8848
-  consumer:
-    timeout: 3000
+  scan:
+    base-packages: cn.stormbirds.sharedcharging.equipment.service.impl
+  protocol:
+    name: dubbo
+    port: -1
 
 users:
   service:
     version: 0.1.0
+equipment:
+  service:
+    version:  0.1.0
+    address: wifi.stormbirds.cn
 
 

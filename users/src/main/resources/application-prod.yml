@@ -88,3 +88,7 @@ users:
   service:
     version: 0.1.0
     address: wifi.stormbirds.cn
+equipment:
+  service:
+    version:  0.1.0
+    address: wifi.stormbirds.cn

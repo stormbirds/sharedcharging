@@ -50,5 +50,8 @@ dubbo:
 users:
   service:
     version: 0.1.0
+equipment:
+  service:
+    version:  0.1.0
 
 

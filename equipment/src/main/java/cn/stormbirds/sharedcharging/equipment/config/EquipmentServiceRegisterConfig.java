@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Slf4j
-@NacosPropertySource(dataId = "shared_power_bank_users_service-dev.properties", autoRefreshed = true)
+@NacosPropertySource(dataId = "shared_power_bank_equipment_service-dev.properties", autoRefreshed = true)
 @EnableDubbo
 @EnableTransactionManagement
 @Configuration
-public class UsersServiceRegisterConfig {
+public class EquipmentServiceRegisterConfig {
 
     @NacosValue(value = "${users.idcenter.datacenterId:1}")
     private long dataCenterId;

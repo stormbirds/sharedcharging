@@ -1,4 +1,4 @@
-package cn.stormbirds.sharedcharging.web.utils;
+package cn.stormbirds.sharedcharging.equipment.mqtt;
 
 
 import cn.stormbirds.sharedcharging.common.config.MqttConstants;
