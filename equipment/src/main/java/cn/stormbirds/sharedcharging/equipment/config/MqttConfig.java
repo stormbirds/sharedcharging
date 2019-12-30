@@ -175,13 +175,17 @@ public class MqttConfig {
             if (receivedTopic != null &&
                     receivedTopic.startsWith("$SYS/brokers/") &&
                     receivedTopic.endsWith("/connected")) {
-                mqttOnlineService.onLine(connectedPayload.getClientid());
+                if(mqttOnlineService.onLine(connectedPayload.getClientid())==1){
+                    log.info("========={}=====Device Online======{}============", message.getHeaders(), message.getPayload());
+                }
             } else if (receivedTopic != null &&
                     receivedTopic.startsWith("$SYS/brokers/") &&
                     receivedTopic.endsWith("/disconnected")) {
-                mqttOnlineService.offline(connectedPayload.getClientid());
+                if(mqttOnlineService.offline(connectedPayload.getClientid())==1){
+                    log.info("========={}=====Device Offline======{}============", message.getHeaders(), message.getPayload());
+                }
             }
-            log.error("========={}==========={}============", message.getHeaders(), message.getPayload());
+
         };
     }
 }

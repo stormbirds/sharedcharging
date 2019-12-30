@@ -4,8 +4,8 @@ import cn.stormbirds.sharedcharging.api.equipment.IEquipmentMqttSender;
 import cn.stormbirds.sharedcharging.api.users.ISpbRoleService;
 import cn.stormbirds.sharedcharging.common.base.BaseController;
 import cn.stormbirds.sharedcharging.common.utils.RedisUtil;
+import cn.stormbirds.sharedcharging.model.users.SpbRole;
 import cn.stormbirds.sharedcharging.web.domain.ResultJson;
-
 import com.alibaba.nacos.api.config.annotation.NacosValue;
 import io.swagger.annotations.Api;
 import org.apache.dubbo.config.annotation.Reference;
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -63,7 +63,7 @@ public class TestController extends BaseController {
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/roles")
-    public ResultJson getRoleList(){
+    public ResultJson<List<SpbRole>> getRoleList(){
         return ResultJson.ok(roleService.list());
     }
 
@@ -74,7 +74,7 @@ public class TestController extends BaseController {
     }
 
     @PostMapping(value = "/mqttsend")
-    public ResultJson mqttSendTest(@RequestParam String topic,@RequestParam int qos){
+    public ResultJson<String> mqttSendTest(@RequestParam String topic,@RequestParam int qos){
         mqttSenderService.sendToMqtt(topic,qos,"{ \"msg\": \"Hello, World Test!\" }");
         return ResultJson.ok();
     }

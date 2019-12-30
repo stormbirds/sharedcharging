@@ -1,6 +1,7 @@
 package cn.stormbirds.sharedcharging.equipment.service.impl;
 
 import cn.stormbirds.sharedcharging.api.equipment.IEquipmentControllerService;
+import org.springframework.util.DigestUtils;
 
 /**
  * <p>
@@ -12,8 +13,29 @@ import cn.stormbirds.sharedcharging.api.equipment.IEquipmentControllerService;
  */
 public class EquipmentControllerServiceImpl implements IEquipmentControllerService {
     @Override
-    public int rentPowerBank(String eqCode) {
+    public int ejectBatteryByDeviceId(String eqCode) {
 
         return 0;
     }
+
+    @Override
+    public int updateVideoByPath(String eqCode, String videoFile) {
+        return 0;
+    }
+
+    @Override
+    public int updateQRcode(String eqCode, String qrUrl) {
+        return 0;
+    }
+
+    @Override
+    public int restartDevice(String eqCode) {
+        return 0;
+    }
+
+    @Override
+    public String getQrCode(String eqCode) {
+        return "http://127.0.0.1:8081/api/v1/equipment/scanQrCodeH5/" + DigestUtils.md5DigestAsHex(eqCode.getBytes());
+    }
+
 }
