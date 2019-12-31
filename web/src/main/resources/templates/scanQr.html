@@ -19,14 +19,27 @@
     <script>
 
         $("#btn").click(function () {
+
             $.ajax({
-                url: "demo_test.txt",
-                success: function (result) {
-                    alert("正确 ");
-                }, error: function (xhr) {
+                type:"POST",
+                url: "ReceiveInfo.html",
+                contentType: "application/json", //如果提交的是json数据类型，则必须有此参数,表示提交的数据类型 
+                //dataType: "json", //表示返回值类型，不必须           
+                data: JSON.stringify({ "InviteBidInfo": 
+                    [{ 'BidProId': '123', 
+                    'BidProType': '123', 
+                    'BidProName': 'BidProName', 
+                    'ItemType': 'ItemType' }]
+                }),  
+                success: function (jsonResult) {                  
+                    //在原来的页面跳转到下载word模板的页面
+                    window.location.href = "/InviteBid/ExportTemplateFile";
+                },
+                error: function (data){
                     alert("错误提示： " + xhr.status + " " + xhr.statusText);
-                }
-            });
+            }
+            });      
+        
         });
     </script>
 </body>

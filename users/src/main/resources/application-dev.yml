@@ -68,7 +68,7 @@ nacos:
     type: properties
     bootstrap.enable: true
     enable-remote-sync-config: true
-    namespace: 9ad8a419-e5b1-4968-9ecd-cfcefa06efe5
+    namespace: 2e4cb133-cb3c-49f2-ae3a-f9395a70fc89
 
 
 

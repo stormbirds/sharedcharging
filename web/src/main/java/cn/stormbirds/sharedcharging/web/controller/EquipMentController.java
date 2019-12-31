@@ -1,8 +1,10 @@
 package cn.stormbirds.sharedcharging.web.controller;
 
+import cn.stormbirds.sharedcharging.api.equipment.IEquipmentControllerService;
+import cn.stormbirds.sharedcharging.web.domain.ResultCode;
 import cn.stormbirds.sharedcharging.web.domain.ResultJson;
 import io.swagger.annotations.Api;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/app/v1/equipment")
 public class EquipMentController {
+
+    @Reference(version = "${equipment.service.version}")
+    private IEquipmentControllerService equipmentControllerService;
 
     @GetMapping(value = "/scanQrCodeH5/{qrCode}")
     public String scanQrCodeH5(@PathVariable String qrCode){
@@ -54,5 +59,13 @@ public class EquipMentController {
                 "</body>\n" +
                 "\n" +
                 "</html>";
+    }
+
+    @PostMapping(value = "/rentPowerBank/{eqCode}")
+    public ResultJson rentPowerBank(@PathVariable String eqCode){
+        if(equipmentControllerService.ejectBatteryByDeviceId(eqCode)==1){
+            return ResultJson.ok();
+        }
+        return ResultJson.failure(ResultCode.SERVER_ERROR);
     }
 }

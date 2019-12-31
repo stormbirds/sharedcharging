@@ -33,6 +33,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Configuration
 @EnableCaching
@@ -114,7 +115,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Primary
     public RedisCacheManager redisCacheManager(RedisTemplate<String, Object> redisTemplate) {
         RedisCacheWriter redisCacheWriter = RedisCacheWriter
-                .nonLockingRedisCacheWriter(redisTemplate.getConnectionFactory());
+                .nonLockingRedisCacheWriter(Objects.requireNonNull(redisTemplate.getConnectionFactory()));
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration
                 .defaultCacheConfig().serializeValuesWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(redisTemplate

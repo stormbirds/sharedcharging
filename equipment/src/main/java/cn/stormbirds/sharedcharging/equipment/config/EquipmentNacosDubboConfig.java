@@ -1,10 +1,14 @@
-package cn.stormbirds.sharedcharging.web.config;
+package cn.stormbirds.sharedcharging.equipment.config;
 
+import cn.stormbirds.sharedcharging.common.utils.IdCenter;
 import com.alibaba.nacos.api.annotation.NacosProperties;
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
 import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
 import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySources;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubboConfig;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -25,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
          * Group：multi-data-ids
          * 配置内容：test.username=nacos_value
          */
-        @NacosPropertySource(dataId = "shared_power_bank_web-dev.properties", autoRefreshed = true),
+        @NacosPropertySource(dataId = "shared_power_bank_equipment-dev.properties", autoRefreshed = true),
 
         /*
          * 1. 本地安装 MySQL
@@ -57,6 +61,13 @@ import org.springframework.context.annotation.Configuration;
         @NacosPropertySource(dataId = "redis.properties", autoRefreshed = true)
 })
 @EnableDubbo
-public class WebNacosDubboConfig {
+@EnableDubboConfig()
+public class EquipmentNacosDubboConfig {
+    @NacosValue(value = "${users.idcenter.datacenterId:1}")
+    private long dataCenterId;
 
+    @Bean
+    public IdCenter idCenter(){
+        return IdCenter.INSTENSE.init(dataCenterId,0,"equipment service Id生成器服务");
+    }
 }

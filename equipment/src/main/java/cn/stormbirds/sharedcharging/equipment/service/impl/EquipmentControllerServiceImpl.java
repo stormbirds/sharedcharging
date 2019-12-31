@@ -1,6 +1,10 @@
 package cn.stormbirds.sharedcharging.equipment.service.impl;
 
 import cn.stormbirds.sharedcharging.api.equipment.IEquipmentControllerService;
+import cn.stormbirds.sharedcharging.equipment.mqtt.MqttSender;
+import org.apache.dubbo.config.annotation.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.DigestUtils;
 
 /**
@@ -11,10 +15,18 @@ import org.springframework.util.DigestUtils;
  * @author StormBirds Email：xbaojun@gmail.com
  * @since 2019/10/20 下午11:16
  */
+@Service(version = "${equipment.service.version}")
 public class EquipmentControllerServiceImpl implements IEquipmentControllerService {
+    @Autowired
+    private RedisTemplate redisTemplate;
+    @Autowired
+    private MqttSender mqttSender;
     @Override
     public int ejectBatteryByDeviceId(String eqCode) {
-
+        if(redisTemplate.opsForSet().isMember("Equipment:Online",eqCode)){
+            mqttSender.sendToMqtt("Equipment:Operations:EjectBattery:"+eqCode,2,"释放电池");
+            return 1;
+        }
         return 0;
     }
 
