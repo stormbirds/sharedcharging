@@ -21,9 +21,7 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
-import static cn.stormbirds.sharedcharging.common.config.MqttConstants.CHANNEL_NAME_IN;
-import static cn.stormbirds.sharedcharging.common.config.MqttConstants.CHANNEL_NAME_OUT;
-import static cn.stormbirds.sharedcharging.common.config.MqttConstants.WILL_DATA;
+import static cn.stormbirds.sharedcharging.common.config.MqttConstants.*;
 
 /**
  * <p>
@@ -159,6 +157,10 @@ public class MqttConfig {
         return new DirectChannel();
     }
 
+    @Bean(name = CHANNEL_SYNC_NAME_IN)
+    public MessageChannel mqttInboundSyncChannel(){
+        return new DirectChannel();
+    }
     /**
      * MQTT消息处理器（消费者）
      *

@@ -17,6 +17,10 @@ public class MqttConstants {
      */
     public static final String CHANNEL_NAME_IN = "mqttInboundChannel";
     /**
+     * 订阅的bean名称(同步消息主题订阅)
+     */
+    public static final String CHANNEL_SYNC_NAME_IN = "mqttInboundSyncChannel";
+    /**
      * 发布的bean名称
      */
     public static final String CHANNEL_NAME_OUT = "mqttOutboundChannel";

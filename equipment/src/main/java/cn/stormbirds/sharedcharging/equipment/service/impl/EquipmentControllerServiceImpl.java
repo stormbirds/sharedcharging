@@ -24,7 +24,7 @@ public class EquipmentControllerServiceImpl implements IEquipmentControllerServi
     @Override
     public int ejectBatteryByDeviceId(String eqCode) {
         if(redisTemplate.opsForSet().isMember("Equipment:Online",eqCode)){
-            mqttSender.sendToMqtt("Equipment:Operations:EjectBattery:"+eqCode,2,"释放电池");
+            mqttSender.sendToMqtt("Equipment:EqCode:"+eqCode,2,"释放电池");
             return 1;
         }
         return 0;
