@@ -1,5 +1,9 @@
 package cn.stormbirds.sharedcharging.api.equipment;
 
+import cn.stormbirds.sharedcharging.model.equipment.VideoFile;
+
+import java.util.List;
+
 /**
  * <p>
  * cn.stormbirds.sharedcharging.api.equipment
@@ -20,10 +24,10 @@ public interface IEquipmentControllerService {
     /**
      * 更新视频操作
      * @param eqCode 设备唯一标识，为空则表示所有设备
-     * @param videoFile 视频文件路径
+     * @param videoFiles 视频文件路径
      * @return 1：成功 0：失败
      */
-    int updateVideoByPath(String eqCode, String videoFile);
+    int updateVideoByPath(String eqCode, List<VideoFile> videoFiles);
 
     /**
      * 更新二维码操作
