@@ -21,6 +21,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-autoconfigure</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -92,6 +102,8 @@
         <dependency>
             <groupId>cn.stormbirds.sharedcharging</groupId>
             <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+
         </dependency>
         <dependency>
             <groupId>cn.stormbirds.sharedcharging</groupId>

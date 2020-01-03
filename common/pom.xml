@@ -68,23 +68,19 @@
 			<scope>compile</scope>
 		</dependency>
 
-<!--        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>-->
-		<dependency>
+<!--		<dependency>
 			<groupId>cn.stormbirds.sharedcharging</groupId>
 			<artifactId>model</artifactId>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
-	<build>
+<!--	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-	</build>
+	</build>-->
 
 </project>
